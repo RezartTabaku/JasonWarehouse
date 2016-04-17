@@ -1,0 +1,14 @@
+MAS warehouse {
+
+	infrastructure: Centralised
+
+	environment:
+		warehouse.WareEnv(20,20)
+		
+	agents:
+		human;
+		forklift;
+
+	aslSourcePath:
+		"src/asl";
+}
