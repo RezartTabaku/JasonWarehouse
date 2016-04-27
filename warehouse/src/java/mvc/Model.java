@@ -13,6 +13,7 @@ public class Model extends World implements Serializable{
 	public Agent[][] AgMap;
 	public boolean[][] visited ;
 	public Agent AgHuman;
+	public Agent AgSupplier;
 	
 	public Model() {
 		super(height * BlockH  , width * BlockW);
@@ -53,6 +54,8 @@ public class Model extends World implements Serializable{
 			AgList.add(a);
 			if(a.getType().equals("human")){
 				AgHuman = a;
+			}else if( a.getType().equals("supplier")){
+				AgSupplier = a;
 			}
 			AgMap[a.x][a.y] = a;
 		}

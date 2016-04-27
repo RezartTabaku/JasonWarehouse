@@ -10,9 +10,9 @@ import mvc.Model;
 public interface FXServer extends Remote {
 	public boolean handshake() throws RemoteException;
 	public boolean showStage() throws RemoteException;
-	public boolean moveHuman(int x, int y) throws RemoteException;
+	public boolean moveHuman(String location) throws RemoteException;
 	public void sendButton() throws RemoteException;
 	public boolean getItem(String string)throws RemoteException;
-	public boolean setModel(int width, int height) throws RemoteException;
+	public Model setModel(int width, int height) throws RemoteException;
 
 }

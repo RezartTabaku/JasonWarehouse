@@ -1,6 +1,8 @@
 package mvc;
 
-public class Agent implements AgentLocation{
+import java.io.Serializable;
+
+public class Agent implements AgentLocation, Serializable{
 	private int ID;
 	private String type = "Test";
 	public int x;

@@ -22,6 +22,7 @@ public class View extends World {
 	public Group ControlPanel = new Group();
 	public Model Environment;
 	public Group Human,Forklift,Supplier;
+	Rectangle newDest  = new Rectangle(); 
 	private int adjuster = (int) (BlockW * 0.2);
 	public Font font = new Font("Arial",adjuster);
 	
@@ -38,6 +39,7 @@ public class View extends World {
 		drawBorders();
 		drawLines();
 		drawAgents();
+		addDest(1,1);
 		super.setScene(getView());
 	}
 	
@@ -88,7 +90,7 @@ public class View extends World {
 				Rectangle supplier= new Rectangle();
 				supplier.setHeight(BlockH);
 				supplier.setWidth(BlockW);
-				supplier.setX(a.x * BlockW);
+				supplier.setX((a.x - 1) * BlockW);
 				supplier.setY((Environment.height - a.y ) * BlockH);
 				supplier.setFill(Color.GREEN);
 				Text supplierText = new Text(a.getType());
@@ -161,6 +163,28 @@ public class View extends World {
 		Button button = new Button("Test");
 		
 		ControlPanel.getChildren().add(button);
+	}
+
+	public Rectangle addDest(int x, int y) {
+		newDest.setFill(Color.WHITE);
+		newDest.setVisible(false);
+		newDest.setHeight(BlockW);
+		newDest.setWidth(BlockH);
+		newDest.setX((x - 1)*BlockH );
+		newDest.setY((Environment.height - y)*BlockH);
+		newDest.setStroke(Color.GREENYELLOW);
+		Field.getChildren().addAll(newDest);
+		return newDest;	
+	}
+	
+public void setDest(int x, int y) {
+		if (x < 0 || Environment.AgMap[x][y]!=null) newDest.setVisible(false);
+		else{
+			newDest.setX((x - 1)*BlockH );
+			newDest.setY((Environment.height - y)*BlockH);
+			newDest.setVisible(true);
+		}
+		
 	}
 	
 	
