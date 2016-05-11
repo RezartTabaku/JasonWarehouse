@@ -12,7 +12,8 @@ public interface FXServer extends Remote {
 	public boolean showStage() throws RemoteException;
 	public boolean moveHuman(String location) throws RemoteException;
 	public void sendButton() throws RemoteException;
-	public boolean getItem(String string)throws RemoteException;
+	public boolean forkGetItem(String string)throws RemoteException;
+	public boolean humanGetItem(String string)throws RemoteException;
 	public Model setModel(int width, int height) throws RemoteException;
-
+	public boolean moveFork(String loc) throws RemoteException;
 }

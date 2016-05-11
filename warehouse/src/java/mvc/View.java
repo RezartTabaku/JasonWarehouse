@@ -1,18 +1,17 @@
 package mvc;
 
+import java.util.ArrayList;
+
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Ellipse;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import warehouse.WarehouseModel;
+
 
 public class View extends World {
 	public Scene S ;
@@ -26,6 +25,8 @@ public class View extends World {
 	private int adjuster = (int) (BlockW * 0.2);
 	public Font font = new Font("Arial",adjuster);
 	
+	public ArrayList<Rectangle> ItemCollection = new ArrayList<Rectangle>();
+	
 	public View(Model M){
 		super();
 		Environment = M;
@@ -36,13 +37,29 @@ public class View extends World {
 
 	/* Starts the visualisation*/
 	public void draw(){
+		
 		drawBorders();
 		drawLines();
 		drawAgents();
 		addDest(1,1);
+		drawItems();
 		super.setScene(getView());
 	}
 	
+	private void drawItems() {
+		for(String item : Environment.ItemCollection){
+			Rectangle ob = new Rectangle();
+			ob.setHeight(10);
+			ob.setWidth(30);
+			ob.setX((Environment.AgSupplier.x - 1)*BlockH );
+			ob.setY((Environment.height - Environment.AgSupplier.y)*BlockH);
+			ob.setFill(Color.BLUE);
+			ItemCollection.add(ob);
+			Field.getChildren().addAll(ob);
+		}
+		
+	}
+
 	public void drawAgents(){
 		for(Agent a : Environment.AgList){
 			switch(a.getType()){

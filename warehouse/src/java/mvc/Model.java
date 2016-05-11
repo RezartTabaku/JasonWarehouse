@@ -3,6 +3,9 @@ package mvc;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javafx.scene.Node;
+import server.*;
+
 
 public class Model extends World implements Serializable{
 	
@@ -11,9 +14,10 @@ public class Model extends World implements Serializable{
 	public static int width  = 30;
 	
 	public Agent[][] AgMap;
-	public boolean[][] visited ;
 	public Agent AgHuman;
 	public Agent AgSupplier;
+	public Agent AgFork;
+	public ArrayList<String> ItemCollection = new ArrayList<String>();
 	
 	public Model() {
 		super(height * BlockH  , width * BlockW);
@@ -28,7 +32,8 @@ public class Model extends World implements Serializable{
 		
 		AgList = new ArrayList<Agent>();
 		AgMap = new Agent[h+1][w+1];
-		visited = new boolean[h+1][w+1];
+		MoveManagerHuman.visited = new boolean[h+1][w+1];
+		MoveManagerFork.visited = new boolean[h+1][w+1];
 		
 	}
 
@@ -39,14 +44,7 @@ public class Model extends World implements Serializable{
 			AgList.add(new Agent(1,"human",(int)Math.random()*w+1,(int)Math.random()*h+1));
 		}
 	}
-	public void resetVisited(){
-		for(int i = 1; i <= height; i++){
-			for(int j = 1; j <= width; j++){
-				visited[i][j] = false;
-			}
-		}
-		System.out.println("Reset visited");
-	}
+	
 	public void addAgent(Agent a){
 		try{
 			if(a.x >= width || a.y >= height || a.x<=0 || a.y <= 0)
@@ -56,6 +54,8 @@ public class Model extends World implements Serializable{
 				AgHuman = a;
 			}else if( a.getType().equals("supplier")){
 				AgSupplier = a;
+			}else if( a.getType().equals("forklift")){
+				AgFork = a;
 			}
 			AgMap[a.x][a.y] = a;
 		}
@@ -100,8 +100,7 @@ public class Model extends World implements Serializable{
 			try{
 				if(ag.x>width || ag.y > height || ag.x<=0 || ag.y <=0)
 					throw new Exception();
-				AgList.add(ag);
-				AgMap[ag.x][ag.y] = ag;
+				addAgent(ag);
 			}
 			catch(Exception e){
 				System.out.println(ag.getType() + " has been initialized out of bounds.");

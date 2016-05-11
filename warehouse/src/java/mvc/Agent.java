@@ -52,5 +52,9 @@ public class Agent implements AgentLocation, Serializable{
 		return false;
 	}
 	
+	public String toString(){
+		return this.x + " " + this.y + " " + this.type ; 
+	}
+	
 	
 }
